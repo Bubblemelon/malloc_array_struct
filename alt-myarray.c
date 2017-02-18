@@ -1,11 +1,6 @@
 #include "myarray.h"
 
-/* Refer to README.txt for more information
-   the purpose of these methods.
 
-   To test any method independently comment out the call to the
-   API and replace with your own code.
-*/
 
 
 // This private function returns (conceptually) a[j].
@@ -33,14 +28,15 @@ void* altElementFromIndexOfMyArray(myArray *a,int j){
     return _altElementFromIndexOfMyArray(a,j);
   }
   else{
-    return NULL;
+    return NULL; // there's no elements more than or equal to j
   }
 
 }
 
 //inserts a new array element p into myArray "a" at position j
-void altInsertAtMyArray(myArray *a, void *p, unsigned j){
-    /* complete */
+void altInsertAtMyArray(myArray *a, void *p, unsigned j)
+{
+
 
 //if j is greater than length of array, it will resize the array
 //using altReserveMyArray()
@@ -59,11 +55,11 @@ void altInsertAtMyArray(myArray *a, void *p, unsigned j){
 
   }
 
- //if copy function from controlBlock does not exist, the use memcpy.
- if( a->cb.copy ) // if this was not null
- {
-      a->cb.copy(altElementFromIndexOfMyArray ( a,j ), p );
- }
+   //if copy function from controlBlock does not exist, the use memcpy.
+	if( a->cb.copy ) // if this was not null, then function exists
+	{
+		  a->cb.copy(altElementFromIndexOfMyArray ( a,j ), p );
+	}
 
 
   a->index++;
@@ -73,13 +69,14 @@ void altInsertAtMyArray(myArray *a, void *p, unsigned j){
 
 //determines if capacity is enough to support "by" more elements
 void altReserveMyArray(myArray *a, int by){
-    /* complete */
+
 
  //size allocated for array a is a->capacity
 
  //determine if capacity is enough to support "by" more elements
  if(  a->capacity < by  )
  {
+ 
    if ( a->capacity == 0 )
    {
      a->capacity = 2;
